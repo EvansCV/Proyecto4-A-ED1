@@ -3,8 +3,15 @@
 # Autores: Evans Josué Corrales Valverde
 # Fecha de creación 24 de enero del 2024.
 
+from threading import Thread
 from Server import ServerTCP
 from Client import ClientTCP
+
+def ejecutar_servidor(servidor):
+    try:
+        servidor.iniciar()
+    except Exception as e:
+        print(f"Error en el servidor: {e}")
 
 print("Socialtec\n\n")
 
@@ -16,11 +23,14 @@ while True:
     opcion = input("Opción: ")
     match opcion:
         case "1":
-            # Iniciar servidor y cliente
             servidor = ServerTCP()
             cliente = ClientTCP()
+
+            # Iniciar servidor en un hilo separado
+            servidor_hilo = Thread(target=ejecutar_servidor, args=(servidor,))
+            servidor_hilo.start()
+
             try:
-                servidor.iniciar()
                 cliente.conectar()
                 cliente.enviar_mensajes()
             except KeyboardInterrupt:
@@ -30,10 +40,20 @@ while True:
             finally:
                 servidor.cerrar()
                 print("Servidor detenido.")
-                cliente.cerrar()
                 print("Cliente desconectado.")
         case "2":
             print("Saliendo del programa...")
             break
         case _:
             print("Opción inválida, intente nuevamente.")
+
+
+""""Ejemplo de uso de cada uno de las partes del grafo. "El server en realidad ya está implementando el grafo.
+grafo = Graph()
+print(grafo.agregar_usuario("Alice", "12345"))
+print(grafo.autenticar_usuario("Alice", "12345"))  # Correcto
+print(grafo.autenticar_usuario("Alice", "wrong"))  # Incorrecto
+print(grafo.agregar_usuario("Bob", "pass"))
+print(grafo.agregar_arista("Alice", "Bob"))
+grafo.mostrar_matriz()"""
+

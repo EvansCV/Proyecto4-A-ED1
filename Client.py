@@ -25,12 +25,3 @@ class ClientTCP:
             self.client_socket.close()
             print("Cliente desconectado.")
 
-
-# Instanciar y ejecutar el cliente
-if __name__ == "__main__":
-    cliente = ClientTCP()
-    try:
-        cliente.conectar()
-        cliente.enviar_mensajes()
-    except ConnectionRefusedError:
-        print("No se pudo conectar al servidor. Asegúrate de que esté corriendo.")

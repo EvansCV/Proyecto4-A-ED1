@@ -1,13 +1,13 @@
 import socket
 import threading
-import Graph
+from Graph import Graph
 
 class ServerTCP:
     def __init__(self, host = "127.0.0.1", port = 65432):
         self.host = host
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client = []
+        self.clients = []
         self.grafo = Graph
 
     # Configuración del servidor
@@ -26,29 +26,23 @@ class ServerTCP:
     def manejar_cliente(self, conn, addr):
         try:
             while True:
-                data = conn.recv(1024)
+                data = conn.recv(1024).decode()
                 if not data:
                     break
-                print(f"Mensaje de {addr}: {data.decode()}")
-                respuesta = f"Servidor recibió: {data.decode()}"
+                comando, *args = data.split()
+                if comando == "agregar_usuario":
+                    respuesta = self.grafo.agregar_usuario(*args)
+                elif comando == "autenticar":
+                    autenticado, mensaje = self.grafo.autenticar_usuario(*args)
+                    respuesta = mensaje
+                else:
+                    respuesta = "Comando no reconocido."
                 conn.sendall(respuesta.encode())
-        except ConnectionResetError:
-            print(f"Conexión perdida con {addr}")
-        finally:
-            print(f"Cliente {addr} desconectado")
-            self.clients.remove(conn)
-            conn.close()
+        except Exception as e:
+            print(f"Error: {e}")
 
     def cerrar(self):
         for client in self.clients:
             client.close()
         self.server_socket.close()
         print("Servidor cerrado.")
-
-# Instanciar y ejecutar el servidor
-if __name__ == "__main__":
-    servidor = ServerTCP()
-    try:
-        servidor.iniciar()
-    except KeyboardInterrupt:
-        servidor.cerrar()
