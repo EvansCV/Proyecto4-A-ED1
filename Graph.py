@@ -18,6 +18,9 @@ class Node:
     def verificar_contraseña(self, contrasena):
         return bcrypt.verify(contrasena, self.contrasena) if self.contrasena else False
 
+    def get_photo_path(self):
+        return self.foto
+
     def __str__(self):
         return f"Nodo({self.nombre}, posición: {self.posicion})"
 
@@ -26,6 +29,11 @@ class Graph:
     def __init__(self):
         self.nodos = {}  # Diccionario {nombre: Nodo}
         self.matriz = []
+
+    def get_node(self, nombre):
+        for nombre_nodo in self.nodos:
+            if nombre_nodo == nombre:
+                return self.nodos[nombre_nodo]
 
     def agregar_nodo(self, nombre, **kwargs):
         if nombre in self.nodos:

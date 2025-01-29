@@ -25,3 +25,5 @@ class ClientTCP:
             self.client_socket.close()
             print("Cliente desconectado.")
 
+
+

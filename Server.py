@@ -8,7 +8,8 @@ class ServerTCP:
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
-        self.grafo = Graph
+        self.grafo = Graph()
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Configuración del servidor
     def iniciar(self):
@@ -17,11 +18,16 @@ class ServerTCP:
         print(f"Servidor escuchando en {self.host}:{self.port}")
 
         while True:
-            conn, addr = self.server_socket.accept()
-            print(f"Cliente conectado desde {addr}")
-            self.clients.append(conn)
-            hilo = threading.Thread(target=self.manejar_cliente, args=(conn, addr))
-            hilo.start()
+            try:
+                conn, addr = self.server_socket.accept()
+                print(f"Cliente conectado desde {addr}")
+                self.clients.append(conn)
+                hilo = threading.Thread(target=self.manejar_cliente, args=(conn, addr))
+                hilo.start()
+            except OSError:
+                # Si el socket fue cerrado, termina el bucle
+                break
+
 
     def manejar_cliente(self, conn, addr):
         try:
@@ -43,6 +49,9 @@ class ServerTCP:
 
     def cerrar(self):
         for client in self.clients:
-            client.close()
+            try:
+                client.close()
+            except OSError:
+                pass
         self.server_socket.close()
         print("Servidor cerrado.")
