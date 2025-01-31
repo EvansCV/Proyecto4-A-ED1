@@ -15,7 +15,11 @@ class Node:
     def set_contrasena(self, contrasena):
         self.contrasena = bcrypt.hash(contrasena)
 
+<<<<<<< HEAD
+    def verificar_contrasena(self, contrasena):
+=======
     def verificar_contraseña(self, contrasena):
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
         return bcrypt.verify(contrasena, self.contrasena) if self.contrasena else False
 
     def get_photo_path(self):
@@ -29,6 +33,15 @@ class Graph:
     def __init__(self):
         self.nodos = {}  # Diccionario {nombre: Nodo}
         self.matriz = []
+<<<<<<< HEAD
+        try:
+            print(self.load_from_file("Grafo.JSON"))
+        except Exception as e:
+            print("Aún no se ha guardado el grafo.")
+            pass
+
+=======
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
 
     def get_node(self, nombre):
         for nombre_nodo in self.nodos:
@@ -55,7 +68,11 @@ class Graph:
         for fila in self.matriz:
             fila.append(0)
         self.matriz.append([0] * (len(self.nodos)))
+<<<<<<< HEAD
+        self.save_to_file("Grafo.JSON")
+=======
 
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
         return f"Nodo '{nombre}' agregado con éxito."
 
     def agregar_arista(self, nodo1, nodo2):
@@ -78,7 +95,11 @@ class Graph:
         if nombre not in self.nodos:
             return False, "Error: El usuario no existe."
         nodo = self.nodos[nombre]
+<<<<<<< HEAD
+        if nodo.verificar_contrasena(contrasena):
+=======
         if nodo.verificar_contraseña(contrasena):
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
             return True, f"Autenticación exitosa. Bienvenido, {nombre}."
         return False, "Error: Contraseña incorrecta."
 
@@ -103,14 +124,22 @@ class Graph:
             "nodos": {},
             "matriz": self.matriz
         }
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
         for nombre, nodo in self.nodos.items():
             grafo_data["nodos"][nombre] = {
                 "posicion": nodo.posicion,
                 "contrasena": nodo.contrasena,
                 "foto": getattr(nodo, 'foto', '')
             }
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
         with open(filename, 'w') as f:
             json.dump(grafo_data, f, indent=4)
 

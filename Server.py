@@ -1,6 +1,9 @@
 import socket
 import threading
+<<<<<<< HEAD
+=======
 from Graph import Graph
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
 
 class ServerTCP:
     def __init__(self, host = "127.0.0.1", port = 65432):
@@ -8,7 +11,10 @@ class ServerTCP:
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
+<<<<<<< HEAD
+=======
         self.grafo = Graph()
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Configuración del servidor
@@ -28,7 +34,10 @@ class ServerTCP:
                 # Si el socket fue cerrado, termina el bucle
                 break
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
     def manejar_cliente(self, conn, addr):
         try:
             while True:
@@ -41,6 +50,11 @@ class ServerTCP:
                 elif comando == "autenticar":
                     autenticado, mensaje = self.grafo.autenticar_usuario(*args)
                     respuesta = mensaje
+<<<<<<< HEAD
+                elif comando == "salir":
+                    conn.shutdown(socket.SHUT_RDWR)
+=======
+>>>>>>> b5d15bbe3e95217799df548d73d60345747c78e5
                 else:
                     respuesta = "Comando no reconocido."
                 conn.sendall(respuesta.encode())
