@@ -88,6 +88,35 @@ class LoginWindow:
         # Botón para mostrar el grafo
         tk.Button(master, text="Mostrar Grafo", command=self.open_graph_window).pack(padx=30, pady=5)
 
+        # Botón de las estadísticas
+        tk.Button(master, text="Ver estadísticas", command=self.mostrar_estadisticas).pack(pady=10)
+
+    def mostrar_estadisticas(self):
+        # Solicitar estadísticas al servidor
+        estadisticas = self.obtener_estadisticas_servidor()
+
+        # Crear ventana Toplevel para mostrar los resultados
+        stats_window = tk.Toplevel(self.master)
+        stats_window.title("Estadísticas de Usuarios")
+        stats_window.geometry("400x300")
+
+        # Mostrar la información en etiquetas
+        tk.Label(stats_window, text="Estadísticas de la Red Social", font=("Arial", 14, "bold")).pack(pady=10)
+        tk.Label(stats_window, text=f"Usuario con más amigos: {estadisticas['max_amigos']}", font=("Arial", 12)).pack(
+            pady=5)
+        tk.Label(stats_window, text=f"Usuario con menos amigos: {estadisticas['min_amigos']}", font=("Arial", 12)).pack(
+            pady=5)
+        tk.Label(stats_window, text=f"Promedio de amigos por usuario: {estadisticas['promedio']:.2f}",
+                 font=("Arial", 12)).pack(pady=5)
+
+        # Botón para cerrar la ventana
+        tk.Button(stats_window, text="Cerrar", command=stats_window.destroy).pack(pady=10)
+
+    def obtener_estadisticas_servidor(self):
+        respuesta = self.graph.calcular_estadisticas()
+        return respuesta
+
+
     def open_graph_window(self):
         graph_window = tk.Toplevel(self.master)  # Crear una ventana secundaria
         graph_window.grab_set()  # Evita que la ventana principal se quede bloqueada

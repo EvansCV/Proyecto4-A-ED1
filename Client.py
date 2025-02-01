@@ -4,7 +4,6 @@ from Graph import Graph
 class ClientTCP:
     def __init__(self, host='127.0.0.1', port=65432):
         self.grafo = Graph()
-        #self.grafo.mostrar_matriz()
         self.host = host
         self.port = port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -58,6 +57,47 @@ class ClientTCP:
             self.client_socket.close()
             print("Cliente desconectado.")
 
+    def calcular_estadisticas(self):
+        usuarios = self.grafo.get_nodes()
+        if not usuarios:
+            return {"max_amigos": "N/A", "min_amigos": "N/A", "promedio": 0}
+
+        max_usuario = ["N/A"]
+        min_usuario = ["N/A"]
+        max_amigos = -1
+        min_amigos = float("inf")
+        total_amigos = 0
+
+        for usuario in usuarios:
+            amigos = sum(1 for nodo in usuarios if self.grafo.is_friend(usuario, nodo))
+            total_amigos += amigos
+
+            if amigos > max_amigos:
+                max_amigos = amigos
+                max_usuario[0] = usuario
+
+            if amigos < min_amigos:
+                min_amigos = amigos
+                min_usuario[0] = usuario
+
+        for usuario in usuarios:
+            amigos = sum(1 for nodo in usuarios if self.grafo.is_friend(usuario, nodo))
+
+            if amigos == max_amigos:
+                if usuario not in max_usuario:
+                    max_usuario.append(usuario)
+
+            if amigos == min_amigos:
+                if usuario not in min_usuario:
+                    min_usuario.append(usuario)
+
+        promedio_amigos = total_amigos / len(usuarios) if usuarios else 0
+
+        return {
+            "max_amigos": max_usuario,
+            "min_amigos": min_usuario,
+            "promedio": promedio_amigos
+        }
 
 
 
