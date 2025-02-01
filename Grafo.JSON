@@ -1,0 +1,50 @@
+{
+    "nodos": {
+        "Evans Corrales": {
+            "posicion": 0,
+            "contrasena": "$2b$12$fhCb0DZ3YsdY.hAxeJRvT.5eceMvkAdPSWYS2NEisvsWpajsTttjm",
+            "foto": "C:/Users/evans/Downloads/Proyecto4-A-ED1-Evans/Im\u00e1genes/0cbbc0accfc10827d22d9d074918a3fc.jpg"
+        },
+        "Natanael Morales": {
+            "posicion": 1,
+            "contrasena": "$2b$12$4NKN6gakXlvubVSQjWyh8eRRAccvRUUt7oTeeR/aC7ISxDANiFhJG",
+            "foto": "C:/Users/evans/Downloads/Proyecto4-A-ED1-Evans/Im\u00e1genes/242373abcaa16a04d0d6e0ec0e897c88.jpg"
+        },
+        "Piterson Gonz\u00e1les": {
+            "posicion": 2,
+            "contrasena": "$2b$12$uqjqklwXTUHFdKdQi8N8L.OOBVCVzwE7mOSYUyRkoHnzryB7KQL7.",
+            "foto": "C:/Users/evans/Downloads/Proyecto4-A-ED1-Evans/Im\u00e1genes/istockphoto-1074930000-612x612.jpg"
+        },
+        "Sergio Salazar": {
+            "posicion": 3,
+            "contrasena": "$2b$12$mxEo/STzZWPyiBCcWEEHbOlteQqD60lThVKAggB4l8YNXCjpKYs/.",
+            "foto": "C:/Users/evans/Downloads/Proyecto4-A-ED1-Evans/Im\u00e1genes/b32afab4832518504a17fa946ee99f5e.jpg"
+        }
+    },
+    "matriz": [
+        [
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            1,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0
+        ]
+    ]
+}
