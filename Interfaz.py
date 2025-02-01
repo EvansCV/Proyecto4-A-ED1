@@ -4,6 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from PIL import Image, ImageTk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from MergeSort import MSort
 
 class GraphWindow:
     def __init__(self, master, graph):
@@ -212,6 +213,47 @@ class UserWindow:
         # Botones de acciones
         tk.Button(master, text="Buscar", command=self.search).pack(pady=5)
         tk.Button(master, text="Cerrar Sesión", command=self.logout).pack(pady=5)
+        tk.Button(master, text="Lista de amigos", command=self.lista_amigos).pack(pady=10)
+
+    def lista_amigos(self):
+        # Creamos la ventana secundaria para desplegar la lista de amigos.
+        friends_window = tk.Toplevel(self.master)
+        friends_window.title("Lista de Amigos")
+        friends_window.geometry("350x400")
+
+        # Creamos un frame que contendrá el Listbox y el scrollbar.
+        frame = tk.Frame(friends_window, padx=10, pady=10)
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        # Creamos un scrollbar vertical.
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Creamos un Listbox con un estilo agradable.
+        listbox = tk.Listbox(frame, font=("Arial", 12), yscrollcommand=scrollbar.set)
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # Configuramos el scrollbar para que controle el Listbox.
+        scrollbar.config(command=listbox.yview)
+
+        lista_amigos = []
+        for node in self.graph.get_nodes():
+            if self.graph.is_friend(self.user.nombre, node):
+                lista_amigos.append(node)
+
+        if len(lista_amigos) == 0:
+            messagebox.showinfo("Lista de Amigos", "No tienes amigos agregados.")
+            return
+
+        # Aplica el MergeSort.
+        lista_ordenada = MSort()
+        lista_ordenada = lista_ordenada.merge_sort(lista_amigos)
+        # Interfaz cuando el usuario posee al menos un amigo
+        for amigo in lista_ordenada:
+            listbox.insert(tk.END, amigo)
+        # Botón para cerrar la ventana de la lista.
+        tk.Button(friends_window, text="Cerrar", command=friends_window.destroy, font=("Arial", 12)).pack(pady=10)
+
 
     def search(self):
         search_window = tk.Toplevel(self.master)
@@ -242,9 +284,9 @@ class UserWindow:
         usuario = self.graph.get_node(f"{nombre} {apellido}")
 
         if usuario:
-            v_amistad = self.graph.is_friend(self.user, usuario)
+            v_amistad = self.graph.is_friend(self.user.nombre, usuario.nombre)
             self.result_label.config(text=f"Usuario encontrado: {usuario.nombre}")
-            self.mostrar_otro_usuario(usuario, v_amistad = self.graph.is_friend(self.user, usuario))
+            self.mostrar_otro_usuario(usuario, v_amistad)
         else:
             self.result_label.config(text="Usuario no encontrado.")
 
@@ -291,7 +333,7 @@ class UserWindow:
     def eliminar_amigo(self, usuario, boton_eliminar):
         # Misma lógica que el anterior, pero al revés.
         self.graph.eliminar_arista(self.user.nombre, usuario)
-        print(f"{usuario} eliminado de lista de amigos")
+        print(f"{usuario} eliminado de la lista de amigos")
 
 
 

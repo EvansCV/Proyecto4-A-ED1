@@ -37,7 +37,7 @@ def main_menu():
         elif opcion == "2":
             print("Saliendo del programa.")
             root.quit()  # Finalizamos la aplicación Tkinter
-            break
+            exit()
         else:
             print("Opción inválida. Intente nuevamente.")
 

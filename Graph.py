@@ -77,7 +77,7 @@ class Graph:
         idx1, idx2 = self.nodos[nodo1].posicion, self.nodos[nodo2].posicion
         self.matriz[idx1][idx2] = 0
         self.save_to_file("Grafo.JSON")
-        return f"Conexión desde '{nodo1}' hasta '{nodo2}' creada."
+        return f"Conexión desde '{nodo1}' hasta '{nodo2}' eliminada."
 
     def is_friend(self, nodo1, nodo2):
         if nodo1 not in self.nodos or nodo2 not in self.nodos:
