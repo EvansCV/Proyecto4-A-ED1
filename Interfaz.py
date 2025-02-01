@@ -99,12 +99,15 @@ class LoginWindow:
         stats_window = tk.Toplevel(self.master)
         stats_window.title("Estadísticas de Usuarios")
         stats_window.geometry("400x300")
+        max_amigos_text = ", ".join(estadisticas["max_amigos"]) if estadisticas["max_amigos"] else "N/A"
+        min_amigos_text = ", ".join(estadisticas["min_amigos"]) if estadisticas["min_amigos"] else "N/A"
+        promedio = estadisticas["promedio"]
 
         # Mostrar la información en etiquetas
         tk.Label(stats_window, text="Estadísticas de la Red Social", font=("Arial", 14, "bold")).pack(pady=10)
-        tk.Label(stats_window, text=f"Usuario con más amigos: {estadisticas['max_amigos']}", font=("Arial", 12)).pack(
+        tk.Label(stats_window, text=f"Usuario con más amigos: {max_amigos_text}", font=("Arial", 12)).pack(
             pady=5)
-        tk.Label(stats_window, text=f"Usuario con menos amigos: {estadisticas['min_amigos']}", font=("Arial", 12)).pack(
+        tk.Label(stats_window, text=f"Usuario con menos amigos: {min_amigos_text}", font=("Arial", 12)).pack(
             pady=5)
         tk.Label(stats_window, text=f"Promedio de amigos por usuario: {estadisticas['promedio']:.2f}",
                  font=("Arial", 12)).pack(pady=5)
