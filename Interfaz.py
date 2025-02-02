@@ -347,25 +347,34 @@ class UserWindow:
             img_label.image = photo  # Mantener referencia para evitar que se elimine
             img_label.pack(pady=5)
 
-        # Condicional de ver si es amigo o no.
+        # Crear el botón con la acción correspondiente según el estado de amistad.
         if not v_amistad:
-            # Botón para agregar a la lista de amigos.
-            boton_enviar = tk.Button(user_window, text="Agregar a amigos", command=lambda: self.enviar_solicitud(usuario.nombre, boton_enviar))
-            boton_enviar.pack(pady=10)
+            boton_accion = tk.Button(user_window, text="Agregar a amigos",
+                                     command=lambda: self.enviar_solicitud(usuario.nombre, boton_accion))
         else:
-            # Botón para eliminar de la lista de amigos.
-            boton_eliminar = tk.Button(user_window, text="Eliminar de amigos", command=lambda: self.eliminar_amigo(usuario.nombre, boton_eliminar))
-            boton_eliminar.pack(pady=10)
+            boton_accion = tk.Button(user_window, text="Eliminar de amigos",
+                                     command=lambda: self.eliminar_amigo(usuario.nombre, boton_accion))
+        boton_accion.pack(pady=10)
 
-    def enviar_solicitud(self, usuario, boton_enviar):
-        # "User" es el usuario original y "usuario" es a quien se le envía la solicitud.
+    def enviar_solicitud(self, usuario, boton):
+        # Agregar la arista que indica la amistad.
         self.graph.agregar_arista(self.user.nombre, usuario)
         print(f"Solicitud de amistad enviada a {usuario}")
+        # Cambiar el botón para que ahora permita eliminar de amigos.
+        boton.config(
+            text="Eliminar de amigos",
+            command=lambda: self.eliminar_amigo(usuario, boton)
+        )
 
-    def eliminar_amigo(self, usuario, boton_eliminar):
-        # Misma lógica que el anterior, pero al revés.
+    def eliminar_amigo(self, usuario, boton):
+        # Eliminar la arista que indica la amistad.
         self.graph.eliminar_arista(self.user.nombre, usuario)
         print(f"{usuario} eliminado de la lista de amigos")
+        # Cambiar el botón para que ahora permita agregar a amigos.
+        boton.config(
+            text="Agregar a amigos",
+            command=lambda: self.enviar_solicitud(usuario, boton)
+        )
 
 
 
