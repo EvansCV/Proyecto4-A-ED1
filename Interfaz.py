@@ -246,6 +246,7 @@ class UserWindow:
         tk.Button(master, text="Buscar", command=self.search).pack(pady=5)
         tk.Button(master, text="Cerrar Sesión", command=self.logout).pack(pady=5)
         tk.Button(master, text="Lista de amigos", command=self.lista_amigos).pack(pady=10)
+        tk.Button(master, text="Sugerencias", command=self.mostrar_sugerencias).pack(pady=5)
 
     def lista_amigos(self):
         # Creamos la ventana secundaria para desplegar la lista de amigos.
@@ -375,6 +376,45 @@ class UserWindow:
             text="Agregar a amigos",
             command=lambda: self.enviar_solicitud(usuario, boton)
         )
+    def mostrar_sugerencias(self):
+        # Crear ventana de sugerencias
+        sugerencias_window = tk.Toplevel(self.master)
+        sugerencias_window.title("Sugerencias de Amigos")
+        sugerencias_window.geometry("500x400")
+        
+        # Frame para contener el Listbox y scrollbar
+        frame = tk.Frame(sugerencias_window)
+        frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Scrollbar
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Listbox para mostrar sugerencias
+        listbox = tk.Listbox(frame, yscrollcommand=scrollbar.set, font=("Arial", 11))
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        scrollbar.config(command=listbox.yview)
+        
+        # Obtener sugerencias
+        sugerencias = self.graph.obtener_sugerencias(self.user.nombre)
+        
+        if not sugerencias:
+            listbox.insert(tk.END, "No hay sugerencias disponibles")
+        else:
+            for usuario_sugerido, camino in sugerencias:
+                # Crear mensaje de sugerencia
+                camino_str = " → ".join(camino)
+                mensaje = f"Podrías conocer a: {usuario_sugerido}\n"
+                mensaje += f"A través de: {camino_str}\n"
+                listbox.insert(tk.END, mensaje)
+                listbox.insert(tk.END, "-" * 50)  # Separador
+        
+        # Botón para cerrar
+        tk.Button(sugerencias_window, text="Cerrar", 
+                command=sugerencias_window.destroy).pack(pady=10)
+
+
 
 
 

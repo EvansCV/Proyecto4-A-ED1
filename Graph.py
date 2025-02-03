@@ -159,3 +159,56 @@ class Graph:
         self.matriz = grafo_data["matriz"]
         
         return "Grafo cargado exitosamente."
+    def encontrar_camino(self, usuario_inicio, usuario_destino, max_profundidad=4):
+        """
+        Encuentra un camino entre dos usuarios usando BFS con límite de profundidad.
+        Retorna la lista del camino si existe, None si no existe.
+        """
+        if usuario_inicio not in self.nodos or usuario_destino not in self.nodos:
+            return None
+            
+        visitados = set()
+        cola = [(usuario_inicio, [usuario_inicio])]
+        
+        while cola:
+            (actual, camino) = cola.pop(0)
+            
+            # Si el camino actual excede la profundidad máxima, lo saltamos
+            if len(camino) > max_profundidad:
+                continue
+                
+            # Obtener índice del nodo actual
+            idx_actual = self.nodos[actual].posicion
+            
+            # Revisar todas las conexiones del nodo actual
+            for nombre_nodo in self.nodos:
+                idx_nodo = self.nodos[nombre_nodo].posicion
+                
+                # Si hay una conexión y no ha sido visitado
+                if self.matriz[idx_actual][idx_nodo] == 1 and nombre_nodo not in visitados:
+                    if nombre_nodo == usuario_destino:
+                        # Encontramos el camino
+                        return camino + [nombre_nodo]
+                        
+                    visitados.add(nombre_nodo)
+                    nuevo_camino = camino + [nombre_nodo]
+                    cola.append((nombre_nodo, nuevo_camino))
+        
+        return None
+
+    def obtener_sugerencias(self, usuario_actual, max_profundidad=4):
+        """
+        Encuentra sugerencias de amigos para un usuario basado en conexiones de amigos.
+        Retorna una lista de tuplas (usuario_sugerido, camino).
+        """
+        sugerencias = []
+        visitados = set([usuario_actual])
+        
+        # Obtener todos los usuarios que no son amigos directos
+        for usuario_destino in self.nodos:
+            if usuario_destino != usuario_actual and not self.is_friend(usuario_actual, usuario_destino):
+                camino = self.encontrar_camino(usuario_actual, usuario_destino, max_profundidad)
+                if camino and len(camino) <= max_profundidad + 1:  # +1 porque el camino incluye al usuario actual
+                    sugerencias.append((usuario_destino, camino))
+        
+        return sugerencias

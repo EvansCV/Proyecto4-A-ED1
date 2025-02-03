@@ -19,6 +19,31 @@
             "posicion": 3,
             "contrasena": "$2b$12$mxEo/STzZWPyiBCcWEEHbOlteQqD60lThVKAggB4l8YNXCjpKYs/.",
             "foto": "C:/Users/evans/Downloads/Proyecto4-A-ED1-Evans/Im\u00e1genes/b32afab4832518504a17fa946ee99f5e.jpg"
+        },
+        "joe_56": {
+            "posicion": 4,
+            "contrasena": "$2b$12$64EL7Pu/GKx3oeS4WAwZceXayN.sM.VPzC7AB8AcLm97R35GY35Du",
+            "foto": "C:/Users/josep/OneDrive/Im\u00e1genes/Capturas de pantalla/Captura de pantalla 2024-04-17 101724.png"
+        },
+        "joe_55": {
+            "posicion": 5,
+            "contrasena": "$2b$12$TISwPX5b57O/MAwtCNON..dGKMHIz/XmBzAN526nbOmMC1h.6jQI6",
+            "foto": "C:/Users/josep/OneDrive/Im\u00e1genes/Capturas de pantalla/Captura de pantalla 2024-04-18 095722.png"
+        },
+        "Joseph Solorzano": {
+            "posicion": 6,
+            "contrasena": "$2b$12$Ut/SmzCr0qJ383grkXisPOO9GkNqy8b9QsD7Qf.5jAzci6NyWwAMC",
+            "foto": "C:/Users/josep/OneDrive/Im\u00e1genes/Capturas de pantalla/Captura de pantalla 2024-06-27 105539.png"
+        },
+        "luis fonsi": {
+            "posicion": 7,
+            "contrasena": "$2b$12$n2S1iQG4UtXlgQ019oMLlObkXlN0HWPQuAqx18CBlv2qY0iBAct2W",
+            "foto": "C:/Users/josep/OneDrive/Im\u00e1genes/Capturas de pantalla/Captura de pantalla 2024-10-27 194104.png"
+        },
+        "lionel messi": {
+            "posicion": 8,
+            "contrasena": "$2b$12$spjsITVjKGl/ozKlqoJ5HemfzV4GScOorIlKrC8ZbNVL/zi6Grxku",
+            "foto": "C:/Users/josep/OneDrive/Escritorio/fondo.png"
         }
     },
     "matriz": [
@@ -26,21 +51,96 @@
             0,
             1,
             1,
-            0
-        ],
-        [
             0,
             0,
-            0,
-            0
-        ],
-        [
             0,
             0,
             0,
             0
         ],
         [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,

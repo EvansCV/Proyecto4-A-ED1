@@ -98,7 +98,11 @@ class ClientTCP:
             "min_amigos": min_usuario,
             "promedio": promedio_amigos
         }
+    def encontrar_camino(self, usuario_inicio, usuario_destino, max_profundidad=4):
+        return self.grafo.encontrar_camino(usuario_inicio, usuario_destino, max_profundidad)
 
+    def obtener_sugerencias(self, usuario_actual, max_profundidad=4):
+        return self.grafo.obtener_sugerencias(usuario_actual, max_profundidad)
 
 
 
